@@ -1,0 +1,693 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="color-scheme" content="dark" />
+  <title>The Ozdilek</title>
+  <meta name="description" content="Minimal CV and home office works portfolio." />
+
+  <style>
+    /* ==========
+       Minimal Dark CV Site
+       Colors: dark gray + white/black + red accent
+       Font: Bahnschrift (Windows) with good fallbacks
+       ========== */
+
+    :root{
+      --bg: #0f1113;
+      --panel: #14181c;
+      --panel2: #101316;
+      --text: #e9eef3;
+      --muted: #aab4bf;
+      --muted2: #7f8a96;
+      --border: rgba(255,255,255,.08);
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+      --accent: #ff2a2a; /* red highlight */
+      --accent2: rgba(255,42,42,.14);
+      --focus: rgba(255,42,42,.35);
+
+      --radius: 18px;
+      --radius2: 12px;
+      --maxw: 1060px;
+    }
+
+    *{ box-sizing: border-box; }
+    html,body{ height:100%; }
+    body{
+      margin:0;
+      font-family: Bahnschrift, "Segoe UI", system-ui, -apple-system, Arial, sans-serif;
+      background:
+        radial-gradient(1200px 600px at 80% -10%, rgba(255,42,42,.10), transparent 55%),
+        radial-gradient(900px 500px at 10% 0%, rgba(255,255,255,.06), transparent 60%),
+        linear-gradient(180deg, var(--bg), #0b0d0f 70%);
+      color: var(--text);
+      line-height:1.55;
+      letter-spacing: .2px;
+    }
+
+    a{ color: inherit; text-decoration: none; }
+    a:hover{ color: var(--text); }
+    ::selection{ background: var(--accent2); }
+
+    .wrap{
+      width: min(var(--maxw), calc(100% - 40px));
+      margin: 0 auto;
+    }
+
+    /* Top bar */
+    header{
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      backdrop-filter: blur(10px);
+      background: rgba(15,17,19,.65);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .topbar{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: 16px;
+      padding: 14px 0;
+    }
+
+    .brand{
+      display:flex;
+      align-items:center;
+      gap: 10px;
+      min-width: 220px;
+    }
+    .dot{
+      width: 10px;
+      height: 10px;
+      border-radius: 999px;
+      background: var(--accent);
+      box-shadow: 0 0 0 6px rgba(255,42,42,.12);
+    }
+    .brand strong{ font-size: 14px; letter-spacing: .8px; }
+    .brand span{
+      display:block;
+      font-size:12px;
+      color: var(--muted);
+      margin-top: -2px;
+    }
+
+    nav{
+      display:flex;
+      gap: 14px;
+      align-items:center;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+    nav a{
+      font-size: 13px;
+      color: var(--muted);
+      padding: 8px 10px;
+      border-radius: 10px;
+      border: 1px solid transparent;
+      transition: .15s ease;
+    }
+    nav a:hover{
+      color: var(--text);
+      border-color: var(--border);
+      background: rgba(255,255,255,.03);
+    }
+
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap: 10px;
+      padding: 10px 12px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,.03);
+      color: var(--text);
+      font-size: 13px;
+      cursor: pointer;
+      transition: .15s ease;
+      user-select: none;
+    }
+    .btn:hover{ border-color: rgba(255,255,255,.16); }
+    .btn-accent{
+      border-color: rgba(255,42,42,.35);
+      background: linear-gradient(180deg, rgba(255,42,42,.18), rgba(255,42,42,.08));
+    }
+    .btn-accent:hover{
+      border-color: rgba(255,42,42,.55);
+    }
+
+    main{ padding: 28px 0 60px; }
+
+    /* Hero */
+    .hero{
+      display:grid;
+      grid-template-columns: 1.35fr .65fr;
+      gap: 18px;
+      align-items: stretch;
+      margin-top: 18px;
+    }
+
+    .card{
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.01));
+      box-shadow: var(--shadow);
+    }
+
+    .hero-left{
+      padding: 22px;
+      background:
+        radial-gradient(600px 260px at 10% 0%, rgba(255,42,42,.10), transparent 55%),
+        linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.01));
+    }
+
+    .kicker{
+      display:inline-flex;
+      gap: 10px;
+      align-items:center;
+      padding: 7px 10px;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      color: var(--muted);
+      font-size: 12px;
+      background: rgba(0,0,0,.18);
+    }
+    .kicker b{
+      color: var(--accent);
+      font-weight: 700;
+      letter-spacing: .6px;
+    }
+
+    h1{
+      margin: 14px 0 10px;
+      font-size: clamp(28px, 4vw, 40px);
+      line-height: 1.15;
+      letter-spacing: .2px;
+    }
+
+    .subtitle{
+      margin: 0 0 16px;
+      color: var(--muted);
+      max-width: 62ch;
+    }
+
+    .hero-actions{
+      display:flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 12px;
+    }
+
+    .hero-right{
+      padding: 18px;
+      display:flex;
+      flex-direction: column;
+      gap: 12px;
+      justify-content: space-between;
+      background: linear-gradient(180deg, rgba(0,0,0,.25), rgba(255,255,255,.01));
+    }
+
+    .stat{
+      padding: 14px;
+      border-radius: var(--radius2);
+      border: 1px solid var(--border);
+      background: rgba(0,0,0,.18);
+    }
+    .stat .label{ color: var(--muted2); font-size: 12px; }
+    .stat .value{ font-size: 16px; margin-top: 2px; }
+    .stat .value b{ color: var(--accent); }
+
+    /* Sections */
+    section{ margin-top: 18px; }
+    .section-card{
+      padding: 18px;
+    }
+
+    .section-head{
+      display:flex;
+      align-items:flex-end;
+      justify-content: space-between;
+      gap: 12px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 14px;
+    }
+    .section-head h2{
+      margin:0;
+      font-size: 16px;
+      letter-spacing: .8px;
+      text-transform: uppercase;
+    }
+    .section-head p{
+      margin:0;
+      color: var(--muted);
+      font-size: 13px;
+      max-width: 62ch;
+    }
+
+    .grid-2{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+
+    .item{
+      padding: 14px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius2);
+      background: rgba(0,0,0,.16);
+    }
+    .item h3{
+      margin:0 0 6px;
+      font-size: 14px;
+    }
+    .meta{
+      display:flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items:center;
+      color: var(--muted2);
+      font-size: 12px;
+      margin-bottom: 10px;
+    }
+    .pill{
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,.03);
+      padding: 4px 8px;
+      border-radius: 999px;
+      font-size: 12px;
+      color: var(--muted);
+    }
+    .pill.red{
+      border-color: rgba(255,42,42,.35);
+      background: rgba(255,42,42,.08);
+      color: var(--text);
+    }
+
+    .bullets{
+      margin: 0;
+      padding-left: 16px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+    .bullets li{ margin: 6px 0; }
+
+    /* Skills */
+    .chips{
+      display:flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    /* Projects */
+    .project-top{
+      display:flex;
+      align-items:center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 8px;
+    }
+    .project-links{
+      display:flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .link{
+      font-size: 12px;
+      color: var(--muted);
+      border-bottom: 1px dashed rgba(255,255,255,.18);
+      padding-bottom: 1px;
+    }
+    .link:hover{ color: var(--text); border-bottom-color: rgba(255,42,42,.45); }
+
+    /* Footer contact */
+    .contact-row{
+      display:flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      align-items:center;
+      justify-content: space-between;
+      padding-top: 12px;
+      border-top: 1px solid var(--border);
+      margin-top: 14px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    /* Utilities */
+    .muted{ color: var(--muted); }
+    .divider{ height: 1px; background: var(--border); margin: 14px 0; }
+
+    /* Focus */
+    :focus-visible{
+      outline: 3px solid var(--focus);
+      outline-offset: 2px;
+      border-radius: 10px;
+    }
+
+    /* Responsive */
+    @media (max-width: 920px){
+      .hero{ grid-template-columns: 1fr; }
+      .brand{ min-width: 0; }
+    }
+    @media (max-width: 720px){
+      nav{ gap: 6px; }
+      nav a{ padding: 8px; }
+      .grid-2{ grid-template-columns: 1fr; }
+    }
+
+    /* Print-friendly (for CV export) */
+    @media print{
+      header{ position: static; backdrop-filter:none; background: #fff; color:#000; border:0; }
+      body{ background:#fff; color:#000; }
+      .card, .item{ box-shadow:none; }
+      .btn, nav{ display:none !important; }
+      .dot{ box-shadow:none; }
+      :root{ --accent:#b00000; }
+      a{ text-decoration:none; }
+    }
+  </style>
+</head>
+
+<body>
+<header>
+  <div class="wrap topbar">
+    <a class="brand" href="#top" aria-label="Go to top">
+      <div class="dot" aria-hidden="true"></div>
+      <div>
+        <strong>The Ozdilek</strong>
+        <span>Finance, Consulting and Engineering</span>
+      </div>
+    </a>
+
+    <nav aria-label="Primary">
+      <a href="#about">About</a>
+      <a href="#experience">Experience</a>
+      <a href="#works">Researches</a>
+      <a href="#projects">Projects</a>
+      <a href="#skills">Abilities</a>
+      <a href="#contact">Contact</a>
+      <button class="btn btn-accent" id="btnPrint" type="button" title="Print / Save as PDF">Print CV</button>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+  <div class="wrap">
+
+    <!-- HERO -->
+    <div class="hero">
+      <div class="card hero-left">
+
+        <h1>
+          The Ozdilek<br/>
+          <span style="color:var(--accent)">Consulting and Engineering</span>
+        </h1>
+
+        <p class="subtitle">
+          Civil Engineering, Mechanical Engineering and Software Developing Services.
+        </p>
+
+        <div class="hero-actions">
+          <!-- Replace these with your links -->
+          <a class="btn btn-accent" href="#contact">Contact</a>
+          <a class="btn" href="assets/eminemreozdilek-cv.pdf" target="_blank" rel="noreferrer">Download CV (PDF)</a>
+          <a class="btn" href="https://github.com/yourname" target="_blank" rel="noreferrer">GitHub</a>
+          <a class="btn" href="https://linkedin.com/in/yourname" target="_blank" rel="noreferrer">LinkedIn</a>
+        </div>
+      </div>
+
+      <aside class="card hero-right">
+        <div class="stat">
+          <div class="label">Location</div>
+          <div class="value">Istanbul, TR</div>
+        </div>
+        <div class="stat">
+          <div class="label">Focus</div>
+          <div class="value"><b>Topology Optimization</b> • FEM • Lattices</div>
+        </div>
+        <div class="stat">
+          <div class="label">Email</div>
+          <div class="value"><a class="link" href="mailto:eminemreozdilek@gmail.com">eminemreozdilek@gmail.com</a></div>
+        </div>
+        <div class="stat">
+          <div class="label">Working Hours</div>
+          <div class="value">Weekdays • Evenings</div>
+        </div>
+      </aside>
+    </div>
+
+    <!-- ABOUT -->
+    <section id="about" class="card section-card">
+      <div class="section-head">
+        <h2>About</h2>
+        <p>Minimal overview. Keep it 3–5 lines. Clear, direct, professional.</p>
+      </div>
+
+      <div class="grid-2">
+        <div class="item">
+          <h3>Profile</h3>
+          <p class="muted" style="margin:0;">
+            Write a compact bio: degrees, what you do now, and what you’re best at.
+            Mention 1–2 specialties and the kind of problems you like solving.
+          </p>
+        </div>
+
+        <div class="item">
+          <h3>Quick Info</h3>
+          <div class="meta">
+            <span class="pill">English / Turkish</span>
+            <span class="pill">Freelance</span>
+            <span class="pill">Consulting</span>
+          </div>
+          <ul class="bullets">
+            <li><b>Education:</b> Your degrees (e.g., ITU Civil + Mechanical Engineering)</li>
+            <li><b>Current:</b> Software Developer — Company / Project</li>
+            <li><b>Interests:</b> Computational engineering, metamaterials, optimization</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- EXPERIENCE -->
+    <section id="experience" class="card section-card">
+      <div class="section-head">
+        <h2>Experience</h2>
+        <p>2–4 roles. Each with 2–3 bullet achievements.</p>
+      </div>
+
+      <div class="grid-2">
+        <article class="item">
+          <div class="meta">
+            <span class="pill red">2023 — Present</span>
+            <span class="pill">Software Developer</span>
+            <span class="pill">Company / Team</span>
+          </div>
+          <h3>Role Title — Project Name</h3>
+          <ul class="bullets">
+            <li>Built/maintained simulation or generation pipeline for lattices / TPMS / FEM.</li>
+            <li>Improved performance / robustness (e.g., meshing, solver integration, post-processing).</li>
+            <li>Collaborated with engineers/researchers to ship features into production.</li>
+          </ul>
+        </article>
+
+        <article class="item">
+          <div class="meta">
+            <span class="pill red">2021 — 2023</span>
+            <span class="pill">Engineer</span>
+            <span class="pill">Industry / Lab</span>
+          </div>
+          <h3>Role Title — Key Responsibility</h3>
+          <ul class="bullets">
+            <li>Designed analysis workflows and validated results against benchmarks.</li>
+            <li>Created tools for automation, reporting, and data visualization.</li>
+            <li>Supported cross-functional delivery (requirements → implementation → testing).</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <!-- HOME OFFICE WORKS -->
+    <section id="works" class="card section-card">
+      <div class="section-head">
+        <h2>Home Office Works</h2>
+        <p>What you offer. Make it concrete, scoped, and easy to request.</p>
+      </div>
+
+      <div class="grid-2">
+        <div class="item">
+          <h3>Engineering Support</h3>
+          <div class="chips">
+            <span class="pill red">FEM setup</span>
+            <span class="pill">Model cleanup</span>
+            <span class="pill">Boundary conditions</span>
+            <span class="pill">Result review</span>
+            <span class="pill">Reports</span>
+          </div>
+          <div class="divider"></div>
+          <p class="muted" style="margin:0;">
+            Example: structural checks, mesh sensitivity, post-processing plots, concise PDF reporting.
+          </p>
+        </div>
+
+        <div class="item">
+          <h3>Computational / Software</h3>
+          <div class="chips">
+            <span class="pill red">Topology optimization</span>
+            <span class="pill">Lattice generation</span>
+            <span class="pill">Python tools</span>
+            <span class="pill">Automation</span>
+            <span class="pill">Data viz</span>
+          </div>
+          <div class="divider"></div>
+          <p class="muted" style="margin:0;">
+            Example: custom scripts, parametric studies, solver wrappers, export pipelines (CSV/VTK/STEP).
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROJECTS -->
+    <section id="projects" class="card section-card">
+      <div class="section-head">
+        <h2>Projects</h2>
+        <p>Show 3–6 things. Each with a crisp one-liner and links.</p>
+      </div>
+
+      <div class="grid-2">
+        <article class="item">
+          <div class="project-top">
+            <h3 style="margin:0;">OpenLattice</h3>
+            <div class="project-links">
+              <a class="link" href="https://eminemreozdilek.github.io/openlattice.github.io/" target="_blank" rel="noreferrer">Repo</a>
+              <a class="link" href="https://drive.google.com/drive/folders/1gREuPsOYKE9VTF8F9dK5JFAYSdkSBlb2" target="_blank" rel="noreferrer">v1.0.0</a>
+            </div>
+          </div>
+          <div class="meta">
+            <span class="pill red">Python</span>
+            <span class="pill">Lattice Generation</span>
+			<span class="pill">Homogenization</span>
+            <span class="pill">Topology Optimization</span>
+          </div>
+          <p class="muted" style="margin:0;">
+            OpenLattice, a user-friendly software package that streamlines lattice generation, homogenization, and topology optimization. OpenLattice facilitates the design of TPMS, strut-based, and auxetic lattices, capabilities that are rarely available in existing software, and integrates homogenization-based topology optimization (HMTO) to reduce computational effort and enhance precision compared to conventional approaches reported in the literature
+          </p>
+        </article>
+
+        <article class="item">
+          <div class="project-top">
+            <h3 style="margin:0;">Project Name</h3>
+            <div class="project-links">
+              <a class="link" href="#" target="_blank" rel="noreferrer">Case Study</a>
+            </div>
+          </div>
+          <div class="meta">
+            <span class="pill red">TPMS</span>
+            <span class="pill">Meshing</span>
+            <span class="pill">Post</span>
+          </div>
+          <p class="muted" style="margin:0;">
+            One sentence describing the result (speedup, accuracy, delivered feature, published output, etc.).
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <!-- SKILLS -->
+    <section id="skills" class="card section-card">
+      <div class="section-head">
+        <h2>Skills</h2>
+        <p>Keep it scannable. Prefer tools + domains.</p>
+      </div>
+
+      <div class="grid-2">
+        <div class="item">
+          <h3>Technical</h3>
+          <div class="chips">
+			<span class="pill">WEB Development</span>
+			<span class="pill">Software Development</span>
+			<span class="pill">Construction</span>
+            <span class="pill">Structural Analysis</span>
+            <span class="pill">Moldecular Dynamic Simulations</span>
+            <span class="pill">Topology Optimization</span>
+            <span class="pill">Metamaterials</span>
+			<span class="pill">Translation</span>
+          </div>
+        </div>
+
+        <div class="item">
+          <h3>Workflow</h3>
+          <div class="chips">
+            <span class="pill">Clean documentation</span>
+            <span class="pill">Reproducible studies</span>
+            <span class="pill">Performance tuning</span>
+            <span class="pill red">Delivery-ready outputs</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact" class="card section-card">
+      <div class="section-head">
+        <h2>Contact</h2>
+        <p>Make it easy to reach you. Add email + links + a short note.</p>
+      </div>
+
+      <div class="grid-2">
+        <div class="item">
+          <h3>Send a message</h3>
+          <p class="muted" style="margin:0 0 10px;">
+            Prefer email. Include a short description + timeline + any files/links.
+          </p>
+          <div class="hero-actions" style="margin:0;">
+            <a class="btn btn-accent" href="mailto:eminemreozdilek@gmail.com?subject=Work%20Inquiry">Email Me</a>
+            <a class="btn" href="https://linkedin.com/in/emin-emre-özdilek-79b009196/" target="_blank" rel="noreferrer">LinkedIn</a>
+            <a class="btn" href="https://github.com/eminemreozdilek" target="_blank" rel="noreferrer">GitHub</a>
+          </div>
+        </div>
+
+        <div class="item">
+          <h3>Details</h3>
+          <ul class="bullets">
+            <li><b>Email:</b> <a class="link" href="mailto:eminemreozdilek@gmail.com">eminemreozdilek@gmail.com</a></li>
+            <li><b>Location:</b> Istanbul, TR</li>
+            <li><b>Timezone:</b> GMT+3</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="contact-row">
+        <span>© <span id="year"></span> Your Name</span>
+        <span class="muted">Built with HTML + CSS • Minimal • Print-friendly</span>
+      </div>
+    </section>
+
+  </div>
+</main>
+
+<script>
+  // Smooth scroll for anchor links
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', (e) => {
+      const id = a.getAttribute('href');
+      if (!id || id === '#') return;
+      const el = document.querySelector(id);
+      if (!el) return;
+      e.preventDefault();
+      el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      history.pushState(null, '', id);
+    });
+  });
+
+  // Print CV
+  document.getElementById('btnPrint')?.addEventListener('click', () => window.print());
+
+  // Year
+  document.getElementById('year').textContent = new Date().getFullYear();
+</script>
+</body>
+</html>
